@@ -1,0 +1,549 @@
+{% extends "base.html" %}
+
+{% block title %}Nathán Pérez {% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section - Ultra Directo */
+    .hero-nathan {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 8rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .hero-text h1 {
+        font-size: 3rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-title {
+        color: var(--color-text);
+        font-weight: 800;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+    
+    .what-i-do {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid var(--color-azul);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin: 2rem 0;
+    }
+    
+    .what-i-do h3 {
+        color: var(--color-azul);
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+    }
+    
+    /* Frase Destacada */
+    .featured-quote {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+        border-radius: 20px;
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .featured-quote::before {
+        content: '"';
+        position: absolute;
+        top: -20px;
+        left: 20px;
+        font-size: 8rem;
+        color: rgba(59, 130, 246, 0.1);
+        font-family: serif;
+    }
+    
+    .quote-text {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--color-text);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .quote-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1.5rem;
+    }
+    
+    .quote-author {
+        color: var(--color-azul);
+        font-weight: 600;
+    }
+    
+    .quote-category {
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--color-azul);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+    }
+    
+    /* Sección: Así de Simple */
+    .simple-section {
+        padding: 6rem 0;
+        background: var(--color-surface);
+    }
+    
+    .simple-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+    
+    .simple-card {
+        background: var(--color-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        border: 1px solid var(--color-border);
+    }
+    
+    .simple-card h3 {
+        margin-bottom: 1rem;
+        color: var(--color-text);
+    }
+    
+    /* Sección: Lo Que Realmente Quiero */
+    .wants-section {
+        padding: 6rem 0;
+    }
+    
+    .wants-list {
+        max-width: 600px;
+        margin: 3rem auto 0;
+    }
+    
+    .want-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .want-item:last-child {
+        border-bottom: none;
+    }
+    
+    .want-icon {
+        color: var(--color-azul);
+        font-size: 1.5rem;
+        margin-top: 0.25rem;
+    }
+    
+    /* Sección: Mi Enfoque */
+    .approach-section {
+        padding: 6rem 0;
+        background: var(--color-surface);
+    }
+    
+    .approach-points {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+    
+    .approach-point {
+        background: var(--color-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--color-border);
+    }
+    
+    /* FAQ Ultra Directa */
+    .faq-direct-section {
+        padding: 6rem 0;
+    }
+    
+    .faq-direct-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .faq-direct-item {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        background: var(--color-surface);
+        border-radius: 12px;
+        border: 1px solid var(--color-border);
+    }
+    
+    .faq-direct-question {
+        color: var(--color-text);
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .faq-direct-answer {
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
+    
+    /* Lenguajes en FAQ */
+    .languages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .language-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: rgba(59, 130, 246, 0.05);
+        border-radius: 10px;
+        border: 1px solid rgba(59, 130, 246, 0.1);
+    }
+    
+    /* CTA Directo */
+    .cta-direct {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, var(--color-azul), var(--color-verde));
+        color: white;
+        text-align: center;
+    }
+    
+    .cta-direct h2 {
+        color: white;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-direct p {
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 2.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Ultra Directo -->
+<section class="hero-nathan">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+            
+                    
+                        <h2> Soy Nathán. Así de simple.</h2>
+              
+                
+                <p class="hero-subtitle">
+                    Sé programar. Sé reparar celulares. Me interesa la psicología humana. Quiero hacer dinero. 
+                    Quiero todo lo que este mundo puede ofrecer.
+                </p>
+                
+                <div class="what-i-do">
+                    <h3>Lo que hago (por ahora):</h3>
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        • Programar<br>
+                        • Reparar celulares<br>
+                        • Y aprender
+                    </p>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <a href="#quiero" class="btn" style="background: var(--color-azul); color: white; padding: 0.875rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600;">
+                        Lo Que Quiero
+                    </a>
+                    <a href="/historia" class="btn" style="background: var(--color-azul); color: white; padding: 0.875rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600;">
+                        Mi historia
+                    </a>
+                    <a href="https://wa.me/59642359" class="btn" style="background: transparent; color: var(--color-azul); padding: 0.875rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; border: 2px solid var(--color-azul);">
+                        Contactarme
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="featured-quote">
+                    <div class="quote-text">{{ frase.texto }}</div>
+                    <div class="quote-meta">
+                        <div class="quote-author">— {{ frase.autor }}</div>
+                        <div class="quote-category">{{ frase.categoria }}</div>
+                    </div>
+                    <button onclick="nuevaFrase()" style="background: none; border: 1px solid var(--color-border); color: var(--color-text); padding: 0.5rem 1rem; border-radius: 8px; margin-top: 1rem; cursor: pointer; font-size: 0.875rem;">
+                        <i class="fas fa-sync-alt"></i> Nueva Frase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Así de Simple -->
+<section class="simple-section">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2>Así de Simple</h2>
+            <p style="color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto 0;">
+                Sin rodeos, sin títulos fancy, sin historias inspiradoras
+            </p>
+        </div>
+        
+        <div class="simple-grid">
+            <div class="simple-card">
+                <h3>1. Sé Programar</h3>
+                <p style="color: var(--color-text-secondary);">
+                    Aprendí porque es útil. No por pasión, no por vocación. Es una herramienta que paga bien y resuelve problemas. Escribo código que funciona, no arte.
+                </p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-azul);">
+                    <strong>Lo uso para:</strong> Automatizar cosas • Crear soluciones • Ganar dinero
+                </div>
+            </div>
+            
+            <div class="simple-card">
+                <h3>2. Soy Técnico de Celulares</h3>
+                <p style="color: var(--color-text-secondary);">
+                    Reparo lo que otros no pueden. Es práctico, es inmediato, la gente paga por eso. Un skill tangible en un mundo digital.
+                </p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-verde);">
+                    <strong>Lo que significa:</strong> Resuelvo problemas reales • Gano dinero en efectivo • Aprendo cómo funcionan las cosas
+                </div>
+            </div>
+            
+            <div class="simple-card">
+                <h3>3. Me Interesa la Psicología</h3>
+                <p style="color: var(--color-text-secondary);">
+                    No para ser terapeuta. Para entender por qué la gente hace lo que hace, compra lo que compra, paga lo que paga. Es ventaja competitiva.
+                </p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: #8b5cf6;">
+                    <strong>Lo aplico en:</strong> Comunicación • Negocios • Entender mercados
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lo Que Realmente Quiero -->
+<section class="wants-section" id="quiero">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2>Lo Que Realmente Quiero</h2>
+            <p style="color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto 0;">
+                Honestidad pura. Todos quieren esto, pocos lo admiten.
+            </p>
+        </div>
+        
+        <div class="wants-list">
+            <div class="want-item">
+                <div class="want-icon">💰</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Dinero</h4>
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        Mucho. Para vivir bien, para no preocuparme, para tener opciones. No me interesa fingir que trabajo por "amor al arte".
+                    </p>
+                </div>
+            </div>
+            
+            <div class="want-item">
+                <div class="want-icon">🕒</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Tiempo</h4>
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        Mi tiempo es mío. No quiero vender 40 horas semanales a un jefe. Quiero trabajar cuando quiera, en lo que quiera.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="want-item">
+                <div class="want-icon">🌎</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Experiencias</h4>
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        Este mundo tiene mucho que ofrecer. Quiero probar, ver, aprender, vivir. Sin límites artificiales.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="want-item">
+                <div class="want-icon">📚</div>
+                <div>
+                    <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Conocimiento Útil</h4>
+                    <p style="color: var(--color-text-secondary); margin: 0;">
+                        Aprender lo que realmente sirve para conseguir lo anterior. Sin teoría inútil, solo lo aplicable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mi Enfoque -->
+<section class="approach-section">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2>Cómo Lo Consigo</h2>
+            <p style="color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto 0;">
+                Pragmatismo puro. Sistemas sobre esfuerzo.
+            </p>
+        </div>
+        
+        <div class="approach-points">
+            <div class="approach-point">
+                <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Valor sobre Horas</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    No vendo mi tiempo. Vendo soluciones. Una hora mía resuelve lo que a otros les toma diez.
+                </p>
+            </div>
+            
+            <div class="approach-point">
+                <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Sistemas Automáticos</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    Construyo cosas que funcionen solas. El dinero mientras duermo no es sueño, es matemática.
+                </p>
+            </div>
+            
+            <div class="approach-point">
+                <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Aprendizaje Estratégico</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    Solo aprendo lo que me acerca a mis objetivos. Nada de cursos por certificados. Todo por resultados.
+                </p>
+            </div>
+            
+            <div class="approach-point">
+                <h4 style="margin-bottom: 0.5rem; color: var(--color-text);">Sin Vergüenza</h4>
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
+                    Todos queremos dinero. Yo lo admito. La hipocresía no paga facturas. La honestidad sí.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Directa -->
+<section class="faq-direct-section">
+    <div class="container">
+        <div class="faq-direct-container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2>Preguntas, Respuestas Directas</h2>
+                <p style="color: var(--color-text-secondary); max-width: 600px; margin: 1rem auto 0;">
+                    Lo que realmente preguntan, lo que realmente respondo
+                </p>
+            </div>
+            
+            <div class="faq-direct-item">
+                <div class="faq-direct-question">¿Y eso de psicología?</div>
+                <div class="faq-direct-answer">
+                    Herramienta. Entiendo por qué la gente compra, por qué se frustra con la tecnología, por qué paga más por algo. 
+                    Me da ventaja. Fin.
+                </div>
+            </div>
+            
+            <div class="faq-direct-item">
+                <div class="faq-direct-question">¿Qué sabes programar?</div>
+                <div class="faq-direct-answer">
+                    <div class="languages-grid">
+                        {% for lang in habilidades.lenguajes %}
+                        <div class="language-item">
+                            <span style="font-size: 1.25rem;">{{ lang.icono }}</span>
+                            <div>
+                                <strong style="color: var(--color-text);">{{ lang.nombre }}</strong>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--color-text-secondary);">
+                        Lo suficiente para hacer lo que necesito. Aprendo lo que haga falta cuando haga falta.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-direct-item">
+                <div class="faq-direct-question">¿Entonces solo te interesa el dinero?</div>
+                <div class="faq-direct-answer">
+                    El dinero es el medio. Lo que quiero es libertad. Libertad de tiempo, de elección, de vida. 
+                    En este mundo, eso cuesta dinero. Así que sí, me interesa el dinero. Como a todos, pero sin fingir que no.
+                </div>
+            </div>
+            
+            <div class="faq-direct-item">
+                <div class="faq-direct-question">¿Y por qué contratarte a ti?</div>
+                <div class="faq-direct-answer">
+                    1. Resuelvo problemas rápido (experiencia técnica + psicología = eficiencia)<br>
+                    2. Hablo claro (sin tecnicismos, sin promesas falsas)<br>
+                    3. Entregó resultados (no horas trabajadas, sino problemas solucionados)<br>
+                    4. Soy honesto (si no sé algo, lo digo. Si no vale la pena, te lo digo)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Directo -->
+<section class="cta-direct">
+    <div class="container">
+        <h2>¿Quieres Alguien Directo?</h2>
+        <p>
+            Si buscas a alguien que hable claro, cumpla lo que dice, 
+            y se enfoque en resultados en lugar de discursos...
+        </p>
+        
+        <a href="{{ url_for('contact') }}" style="background: white; color: var(--color-azul); padding: 1rem 3rem; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-block; margin-top: 1rem;">
+            HABLEMOS DE RESULTADOS
+        </a>
+        
+        <div style="margin-top: 2rem; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">
+            (Directo. Sin rodeos. Solo lo que importa.)
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function nuevaFrase() {
+    try {
+        const response = await fetch('/api/frase');
+        const frase = await response.json();
+        
+        document.querySelector('.quote-text').textContent = frase.texto;
+        document.querySelector('.quote-author').textContent = `— ${frase.autor}`;
+        document.querySelector('.quote-category').textContent = frase.categoria;
+    } catch (error) {
+        console.error('Error cargando frase:', error);
+    }
+}
+</script>
+{% endblock %}

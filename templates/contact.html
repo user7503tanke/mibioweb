@@ -1,0 +1,607 @@
+{% extends "base.html" %}
+
+{% block title %}Contacto - Hablemos sobre tu proyecto{% endblock %}
+
+{% block description %}¿Tienes un proyecto en mente? Contáctame para discutir cómo puedo ayudarte. Respuesta rápida garantizada.{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Contact Hero */
+    .contact-hero {
+        padding: 8rem 0 4rem;
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg) 100%);
+        text-align: center;
+    }
+    
+    .contact-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+    }
+    
+    .contact-stat {
+        text-align: center;
+    }
+    
+    .stat-circle-contact {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--color-surface);
+        border: 2px solid var(--color-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        transition: all var(--transition-normal);
+    }
+    
+    .stat-circle-contact:hover {
+        transform: scale(1.1);
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    /* Contact Main */
+    .contact-main {
+        padding: 6rem 0;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+    }
+    
+    /* Contact Info */
+    .contact-info {
+        background: var(--color-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+    }
+    
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .info-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    .info-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--color-primary-light);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-primary);
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+    
+    /* Contact Form */
+    .contact-form-container {
+        background: var(--color-card);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--color-text);
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: 1rem;
+        color: var(--color-text);
+        transition: all var(--transition-normal);
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    /* Success Message */
+    .success-message {
+        background: var(--color-success);
+        color: white;
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    /* Social Media */
+    .social-media-section {
+        padding: 4rem 0;
+        background: var(--color-surface);
+        text-align: center;
+    }
+    
+    .social-links-grid {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .social-link-large {
+        width: 60px;
+        height: 60px;
+        border-radius: var(--radius-md);
+        background: var(--color-card);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text);
+        text-decoration: none;
+        border: 1px solid var(--color-border);
+        transition: all var(--transition-normal);
+        font-size: 1.5rem;
+    }
+    
+    .social-link-large:hover {
+        transform: translateY(-5px);
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+        padding: 6rem 0;
+    }
+    
+    .faq-grid {
+        max-width: 800px;
+        margin: 3rem auto 0;
+    }
+    
+    .faq-item {
+        margin-bottom: 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+    
+    .faq-question {
+        padding: 1.5rem;
+        background: var(--color-surface);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+    }
+    
+    .faq-answer {
+        padding: 1.5rem;
+        background: var(--color-card);
+        display: none;
+    }
+    
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+    
+    /* Map Placeholder */
+    .map-placeholder {
+        height: 300px;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-top: 2rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .contact-stats {
+            gap: 1.5rem;
+        }
+        
+        .social-links-grid {
+            gap: 0.5rem;
+        }
+        
+        .social-link-large {
+            width: 50px;
+            height: 50px;
+            font-size: 1.25rem;
+        }
+    }
+</style>
+
+<section class="contact-hero">
+    <div class="container">
+        <h2 class="animate-on-scroll">Hablemos</h2>
+        <p class="lead animate-on-scroll">
+            ¿Tienes un proyecto en mente? Estoy aquí para ayudarte a hacerlo realidad.
+        </p>
+        
+        <div class="contact-stats">
+            <div class="contact-stat animate-on-scroll">
+                <div class="stat-circle-contact">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div>
+                    <div style="font-size: 1.25rem; font-weight: 700;">24h</div>
+                    <div>Respuesta</div>
+                </div>
+            </div>
+            
+            <div class="contact-stat animate-on-scroll">
+                <div class="stat-circle-contact">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div>
+                    <div style="font-size: 1.25rem; font-weight: 700;">100%</div>
+                    <div>Disponibilidad</div>
+                </div>
+            </div>
+            
+            <div class="contact-stat animate-on-scroll">
+                <div class="stat-circle-contact">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div>
+                    <div style="font-size: 1.25rem; font-weight: 700;">Gratis</div>
+                    <div>Consulta inicial</div>
+                </div>
+            </div>
+            
+            <div class="contact-stat animate-on-scroll">
+                <div class="stat-circle-contact">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div>
+                    <div style="font-size: 1.25rem; font-weight: 700;">50+</div>
+                    <div>Clientes satisfechos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Main -->
+<section class="contact-main">
+    <div class="container">
+     
+        
+        <div class="contact-grid">
+         
+            <!-- Contact Info -->
+            <div class="contact-info animate-on-scroll">
+                <h2 style="margin-bottom: 2rem;">Información de contacto</h2>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Ubicación</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            {{ perfil.ubicacion if perfil else 'Matanzas, Cuba' }}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Correo electrónico</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            {{ perfil.email if perfil else 'contacto@ejemplo.com' }}
+                        </p>
+                        <a href="mailto:{{ perfil.email if perfil else 'contacto@ejemplo.com' }}" 
+                           style="color: var(--color-primary); text-decoration: none; font-size: 0.875rem; margin-top: 0.5rem; display: block;">
+                            Enviar correo directo
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Disponibilidad</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Lunes a Viernes: 9:00 AM - 6:00 PM
+                        </p>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            Sábados: 10:00 AM - 2:00 PM
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Consulta inicial</h3>
+                        <p style="color: var(--color-text-secondary); margin: 0;">
+                            La primera consulta es completamente gratuita. Hablemos sobre tu proyecto sin compromiso, estoy disponible para cualquier actividad lucrativa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Media -->
+<section class="social-media-section">
+    <div class="container">
+        <h2 class="animate-on-scroll">Conéctate en redes sociales</h2>
+        <p class="lead animate-on-scroll">
+            Sígueme para estar al tanto de mis proyectos y compartir ideas.
+        </p>
+        
+        <div class="social-links-grid">
+            <a href="#" class="social-link-large" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-link-large" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="social-link-large" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link-large" aria-label="Telegram">
+                <i class="fab fa-telegram"></i>
+            </a>
+            <a href="#" class="social-link-large" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link-large" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Preguntas frecuentes</h2>
+            <p class="lead">Resuelvo tus dudas más comunes</p>
+        </div>
+        
+        <div class="faq-grid">
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <span>¿Cuánto tiempo toma desarrollar un proyecto?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>El tiempo varía según la complejidad del proyecto. Una aplicación web básica puede tomar 2-4 semanas, mientras que sistemas más complejos pueden requerir 2-3 meses. Durante la consulta inicial, te daré un estimado preciso.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <span>¿Trabajas con clientes internacionales?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Sí, trabajo con clientes de todo el mundo. Manejo diferentes zonas horarias y me adapto a las necesidades de cada cliente. La comunicación se realiza principalmente por email, Telegram y videollamadas cuando es necesario.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <span>¿Qué métodos de pago aceptas?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Acepto diversas formas de pago incluyendo transferencias bancarias, PayPal, Wise y criptomonedas. El método se acuerda según la conveniencia del cliente y el país de origen.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <span>¿Ofreces mantenimiento después del desarrollo?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Sí, ofrezco planes de mantenimiento mensual que incluyen actualizaciones, corrección de bugs y soporte técnico. También puedo capacitar a tu equipo para que manejen el sistema por sí mismos.</p>
+                </div>
+            </div>
+            
+          
+        </div>
+    </div>
+</section>
+
+
+<!-- CTA Section -->
+<section style="padding: 6rem 0; text-align: center;">
+    <div class="container">
+        <h2 class="animate-on-scroll">¿Listo para empezar?</h2>
+        <p class="lead animate-on-scroll" style="max-width: 600px; margin: 0 auto 2rem;">
+            No importa si tu proyecto es grande o pequeño. Hablemos sobre cómo puedo ayudarte a alcanzar tus objetivos.
+        </p>
+        
+        <a href="https://wa.me/59642359" style="background: none; border: 1px solid var(--color-border); color: var(--color-text); padding: 0.5rem 1rem; border-radius: 8px; margin-top: 1rem; cursor: pointer; font-size: 1.875rem;">
+                        <i class="fas fa-sync-al"></i> Contactar
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const icon = question.querySelector('i');
+        
+        question.addEventListener('click', () => {
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-question i').className = 'fas fa-chevron-down';
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
+            
+            // Toggle icon
+            if (item.classList.contains('active')) {
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                icon.className = 'fas fa-chevron-down';
+            }
+        });
+    });
+    
+    // Form validation
+    const contactForm = document.getElementById('contact-form');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // Simple validation
+            const name = this.querySelector('#name').value.trim();
+            const email = this.querySelector('#email').value.trim();
+            const message = this.querySelector('#message').value.trim();
+            
+            if (!name || !email || !message) {
+                e.preventDefault();
+                showNotification('Por favor, completa todos los campos requeridos.', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                e.preventDefault();
+                showNotification('Por favor, ingresa un correo electrónico válido.', 'error');
+                return;
+            }
+            
+            // If validation passes, the form will submit normally
+        });
+    }
+    
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    function showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        // Style it
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? 'var(--color-success)' : 'var(--color-danger)'};
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        `;
+        
+        // Add to DOM
+        document.body.appendChild(notification);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }, 5000);
+        
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+});
+</script>
+{% endblock %}

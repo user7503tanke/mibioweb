@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block title %}Mi Historia - Nathán Pérez "El Gato"{% endblock %}
+
+{% block description %}Una historia sin línea de tiempo. Solo un camino de código, silencio y aprendizajes que no vienen en los tutoriales.{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Historia */
+    .hero-historia {
+        padding: 8rem 0 4rem;
+        text-align: center;
+        background: linear-gradient(135deg, 
+            rgba(59, 130, 246, 0.05) 0%,
+            rgba(16, 185, 129, 0.05) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-historia::before {
+        content: "{}";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 30rem;
+        color: rgba(59, 130, 246, 0.02);
+        font-weight: bold;
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    .hero-historia .container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-historia h1 {
+        background: linear-gradient(135deg, var(--color-azul), var(--color-verde));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+    
+    /* Historia Narrative */
+    .historia-narrative {
+        padding: 6rem 0;
+        background: var(--color-bg);
+    }
+    
+    .historia-content {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: var(--color-text);
+    }
+    
+    .historia-content p {
+        margin-bottom: 2.5rem;
+        position: relative;
+        padding-left: 2rem;
+    }
+    
+    .historia-content p::before {
+        content: ">";
+        position: absolute;
+        left: 0;
+        color: var(--color-azul);
+        font-weight: bold;
+        opacity: 0.5;
+    }
+    
+    .historia-highlight {
+        background: linear-gradient(120deg, 
+            rgba(59, 130, 246, 0.1) 0%,
+            rgba(16, 185, 129, 0.1) 100%);
+        border-left: 4px solid var(--color-azul);
+        padding: 2rem;
+        margin: 3rem 0;
+        border-radius: 0 12px 12px 0;
+        font-style: italic;
+    }
+    
+    .code-snippet {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 3rem 0;
+        font-family: 'Courier New', monospace;
+        overflow-x: auto;
+    }
+    
+    .code-comment {
+        color: var(--color-verde);
+        opacity: 0.8;
+    }
+    
+    .code-keyword {
+        color: var(--color-azul);
+        font-weight: bold;
+    }
+    
+    .code-string {
+        color: var(--color-naranja);
+    }
+    
+    /* Momentos Clave */
+    .momentos-section {
+        padding: 6rem 0;
+        background: var(--color-surface);
+    }
+    
+    .momento-card {
+        background: var(--color-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        border: 1px solid var(--color-border);
+        transition: transform 0.3s ease;
+    }
+    
+    .momento-card:hover {
+        transform: translateX(10px);
+        border-color: var(--color-azul);
+    }
+    
+    .momento-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--color-azul);
+    }
+    
+    .momento-tag {
+        display: inline-block;
+        padding: 0.25rem 1rem;
+        background: rgba(59, 130, 246, 0.1);
+        color: var(--color-azul);
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    
+    /* Reflexión Final */
+    .reflexion-final {
+        padding: 6rem 0;
+        text-align: center;
+        background: linear-gradient(135deg, 
+            var(--color-azul) 0%,
+            var(--color-verde) 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .reflexion-final::before {
+        content: "//";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 25rem;
+        color: rgba(255, 255, 255, 0.05);
+        font-weight: bold;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .reflexion-final .container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .reflexion-final h2 {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .reflexion-text {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .firma {
+        font-family: 'Courier New', monospace;
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .hero-historia h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero-historia::before {
+            font-size: 20rem;
+        }
+        
+        .historia-content p {
+            padding-left: 1.5rem;
+        }
+        
+        .reflexion-final::before {
+            font-size: 15rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Historia -->
+<section class="hero-historia">
+    <div class="container">
+        <h1>Mi historia</h1>
+        <p class="hero-subtitle">
+            La historia de Nathán Pérez
+        </p>
+    </div>
+</section>
+
+<!-- Historia Narrative -->
+<section class="historia-narrative">
+    <div class="container">
+        <div class="historia-content">
+            <p>Nací un 22 de diciembre del 2009. La curiosidad me encontró antes que cualquier maestro. A los diez años, sin mapa ni guía, comencé a desarmar aplicaciones Android. Mi primer intento fue con WhatsApp. Fracasé una y otra vez, hasta que un día el código cedió. No fue un triunfo, fue una revelación: podía entrar donde otros solo veían una puerta cerrada.</p>
+            
+            <p>Poco después llegué a una comunidad en Telegram. Todos eran mayores, hablaban de cosas que yo apenas comprendía. Mentí sobre mi edad para que mi voz pesara igual. Aprendí Python creando bots, algunos para conectar, otros para saltar barreras. Recuerdo los bots para subir contenido a S3; eran más que herramientas, eran llaves. Llegué a tener un canal con miles de personas. Por un tiempo, todo parecía posible.</p>
+            
+            <p>Luego vinieron las Moodles. Por primera vez, mi conocimiento se convirtió en dinero. La sensación era nueva, intensa, adictiva. Pero esa misma ambición me llevó a terrenos peligrosos. Y las consecuencias llegaron.</p>
+            
+            <p>Tuve que dejarlo todo. Me alejé de las pantallas, de los mensajes, de mi propio ruido. En un pueblo lejano, frente a un mundo sin código, entendí que me había perdido.</p>
+                 <div class="historia-highlight">
+                "Lo único que me sostenía era lo que había aprendido solo, de gurus de internet como Llados y de libros que había leido entre ellos: Las 48 leyes del Poder, Piense y hagase rico, Padre rico Padre pobre y Meditaciones Marco Aurelio."
+            </div>
+            
+            <p>Al volver, nada era igual. Conocí a alguien que no me enseñó a programar, sino a mirar. Otro amigo, con solo su forma de caminar, me mostró que existen más respuestas que las obvias. Aprendí que la moneda no tiene una sola cara y como dijo Marco Aurelio nada es un echo todo es una perspectiva.</p>
+            <p>Esto es una pequeña parte de mi vida y progreso personal. Después de esto e echo proyectos que me han dado un capital que e utilizado para incursionarme en el mundo de los negocios, aunque hasta ahora no me a ido muy bien continuare intentandolo hasta lograrlo.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Momentos Clave -->
+<section class="momentos-section">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2>Algunas Verdades que Aprendí</h2>
+            
+        </div>
+        
+        <div class="momento-card">
+            <div class="momento-icon">🔑</div>
+            <span class="momento-tag">Uno</span>
+            <p>El dinero es libertad. No es que esté orgulloso de este mundo en particular, pero me da dinero, y el dinero es lo que me gusta. Es lo que permite elegir.</p>
+        </div>
+        
+        <div class="momento-card">
+            <div class="momento-icon">🐱</div>
+            <span class="momento-tag">Identidad</span>
+            <p>Me llaman "El Gato". No sé si por curioso, por sigiloso o por terco. Me gusta pensar que es porque aprendí a caer parado, a aterrizar sobre los pies incluso cuando el suelo no esta.</p>
+        </div>
+        
+        <div class="momento-card">
+            <div class="momento-icon">⚡</div>
+            <span class="momento-tag">Mi Motivación</span>
+            <p>Cuando estoy frustrado y pienso que no lo voy a lograr pienso en que lo e pensado otras veces y al final lo logro, después de errores y miles de intentos, lo intento, lo intento y lo vuelvo a intentar hasta lograrlo.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Reflexión Final -->
+<section class="reflexion-final">
+    <div class="container">
+        <h2>Esto no es una historia de éxito ni descubrí el agua tibia</h2>
+        
+        <div class="reflexion-text">
+            Es una historia de intentos y con fuerza de voluntad se logran las cosas.
+            <br><br>
+            No tengo todas las respuestas a todas mis preguntas. Pero tengo curiosidad, y a veces eso es suficiente para seguir.
+        </div>
+        
+        <div class="firma">
+            Nathán Pérez "El Gato"<br>
+            <span style="font-size: 1rem; opacity: 0.8;">// La historia continúa</span>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Simple -->
+<section style="padding: 4rem 0; text-align: center;">
+    <div class="container">
+        <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: 2rem;">
+¿Te inspira mi historia?
+        </p>
+        <a href="https://wa.me/59642359" class="btn" style="background: var(--color-azul); color: white; padding: 0.875rem 2.5rem; border-radius: 10px;">
+            <i class="fas fa-comment"></i> Hablamos
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Efecto de aparición suave para los párrafos
+document.addEventListener('DOMContentLoaded', function() {
+    const paragraphs = document.querySelectorAll('.historia-content p, .momento-card, .historia-highlight');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    paragraphs.forEach(p => {
+        p.style.opacity = '0';
+        p.style.transform = 'translateY(20px)';
+        p.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(p);
+    });
+    
+    // Efecto especial para el código
+    const codeSnippet = document.querySelector('.code-snippet');
+    if (codeSnippet) {
+        setTimeout(() => {
+            codeSnippet.style.borderColor = 'var(--color-azul)';
+            codeSnippet.style.boxShadow = '0 0 30px rgba(59, 130, 246, 0.2)';
+            
+            setTimeout(() => {
+                codeSnippet.style.borderColor = 'var(--color-border)';
+                codeSnippet.style.boxShadow = 'none';
+            }, 2000);
+        }, 1000);
+    }
+});
+</script>
+{% endblock %}
