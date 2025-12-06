@@ -526,6 +526,3 @@ def init_data():
         with open('data/posts.json', 'w', encoding='utf-8') as f:
             json.dump(initial_posts, f, indent=2, ensure_ascii=False)
 
-if __name__ == '__main__':
-    init_data()
-    app.run(host="0.0.0.0",debug=True, port=5000)
