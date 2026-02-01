@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Reseña • Nathán Pérez{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="hero-trabajos">
+        <h1><i class="fas fa-comment-medical"></i> Comparte Tu Experiencia</h1>
+        <p class="subtitle">Cuéntanos cómo fue tu servicio. Tu reseña aparecerá en la página después de ser aprobada.</p>
+    </section>
+    
+    <div class="form-resena-container">
+        {% if mensaje %}
+        <div class="alert alert-{{ 'success' if tipo_mensaje == 'success' else 'error' }}">
+            <i class="fas fa-{% if tipo_mensaje == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+            {{ mensaje }}
+        </div>
+        {% endif %}
+        
+        <form method="POST" class="form-resena">
+            <div class="form-group">
+                <label for="cliente"><i class="fas fa-user"></i> Tu Nombre *</label>
+                <input type="text" id="cliente" name="cliente" 
+                       placeholder="Ej: Miguel" required
+                       value="{{ request.form.cliente if request.form }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="lugar"><i class="fas fa-map-marker-alt"></i> Tu Localidad (opcional)</label>
+                <input type="text" id="lugar" name="lugar" 
+                       placeholder="Ej: Varadero, Matanzas"
+                       value="{{ request.form.lugar if request.form }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="servicio"><i class="fas fa-tools"></i> ¿Qué servicio recibiste? *</label>
+                <input type="text" id="servicio" name="servicio" 
+                       placeholder="Ej: Cambio de pantalla iPhone 13"
+                       required value="{{ request.form.servicio if request.form }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion"><i class="fas fa-edit"></i> Tu experiencia *</label>
+                <textarea id="descripcion" name="descripcion" 
+                          placeholder="Describe cómo fue el servicio, qué problema tenías, cómo lo solucionaron, etc. (Mínimo 10 caracteres)"
+                          required rows="5">{{ request.form.descripcion if request.form }}</textarea>
+                <div class="char-count"><span id="charCount">0</span> caracteres</div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-star"></i> Valoración *</label>
+                <div class="valoracion-input">
+                    {% for i in range(5, 0, -1) %}
+                    <input type="radio" id="star{{ i }}" name="valoracion" value="{{ i }}" 
+                           {% if (request.form and request.form.valoracion == i|string) or (not request.form and i == 5) %}checked{% endif %}>
+                    <label for="star{{ i }}" title="{{ i }} estrellas">★</label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="form-notas">
+                <p><i class="fas fa-info-circle"></i> Tu reseña será revisada antes de publicarse. Solo se mostrará tu nombre y localidad.</p>
+            </div>
+            
+            <button type="submit" class="btn-submit-resena">
+                <i class="fas fa-paper-plane"></i> Enviar Reseña
+            </button>
+            
+            <a href="{{ url_for('trabajos') }}" class="btn-volver">
+                <i class="fas fa-arrow-left"></i> Ver Trabajos
+            </a>
+        </form>
+    </div>
+</div>
+
+<style>
+.form-resena-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.form-resena .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-resena label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-resena input,
+.form-resena textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-resena input:focus,
+.form-resena textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.char-count {
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.valoracion-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.valoracion-input input {
+    display: none;
+}
+
+.valoracion-input label {
+    font-size: 2rem;
+    color: var(--border-color);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.valoracion-input input:checked ~ label,
+.valoracion-input label:hover,
+.valoracion-input label:hover ~ label {
+    color: #f59e0b;
+}
+
+.valoracion-input input:checked + label {
+    color: #f59e0b;
+}
+
+.form-notas {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.btn-submit-resena {
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    color: black;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.btn-submit-resena:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-volver:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 2px solid #34d399;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #f87171;
+}
+</style>
+
+<script>
+// Contador de caracteres
+const descripcion = document.getElementById('descripcion');
+const charCount = document.getElementById('charCount');
+
+descripcion.addEventListener('input', () => {
+    charCount.textContent = descripcion.value.length;
+});
+
+// Inicializar contador
+charCount.textContent = descripcion.value.length;
+</script>
+{% endblock %}

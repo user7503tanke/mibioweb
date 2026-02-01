@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "cliente": "nathan (varadero)",
+    "servicio": "test",
+    "fecha": "February 2026",
+    "descripcion": "nitido lo mejor q e visto",
+    "imagen": "default_resena.jpg",
+    "categoria": "reparacion",
+    "valoracion": 3,
+    "aprobada": true
+  }
+]

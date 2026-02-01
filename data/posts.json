@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "titulo": "Lecciones del Dinero",
+    "contenido": "<h2>Lo que aprendí ganando y perdiendo</h2>\n                <p>El dinero es curioso. Te persigues cuando no lo tienes, y cuando lo consigues, descubres que no era la respuesta...</p>",
+    "resumen": "Reflexiones sobre finanzas desde los 11 años",
+    "fecha": "2026-01-20",
+    "categoria": "Finanzas",
+    "etiquetas": [
+      "dinero",
+      "aprendizaje",
+      "negocios"
+    ],
+    "tiempo_lectura": "5 min",
+    "imagen": "dinero.jpg"
+  },
+  {
+    "id": 2,
+    "titulo": "La Lógica como Superpoder",
+    "contenido": "<h2>Resolver problemas como un juego</h2>\n                <p>La programación me enseñó que todo problema tiene solución...</p>",
+    "resumen": "Cómo la lógica transformó mi forma de pensar",
+    "fecha": "2026-01-18",
+    "categoria": "Lógica",
+    "etiquetas": [
+      "lógica",
+      "programación",
+      "pensamiento"
+    ],
+    "tiempo_lectura": "4 min",
+    "imagen": "logica.jpg"
+  }
+]

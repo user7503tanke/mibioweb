@@ -15,414 +15,374 @@ def calcular_edad(fecha_nacimiento):
     hoy = datetime.now()
     edad = hoy.year - nacimiento.year - ((hoy.month, hoy.day) < (nacimiento.month, nacimiento.day))
     return edad
+
+# ========== DATOS SIMPLIFICADOS ==========
 NATHAN_PERFIL = {
     "nombre": "Nathán Pérez",
     "apodo": "El Gato",
-    "titulo": "Musico • Poeta • Loco",
+    "titulo": "Técnico en Reparación • Desarrollador",
     "ubicacion": "Boca de Camarioca, Matanzas, Cuba",
     "email": "nathanperezalejo22@gmail.com",
-    "bio": str(calcular_edad("2009-12-22"))+" años. Buscando la perfección en la lógica, la belleza en las matemáticas y el sentido en la filosofía. Autodidacta desde los 10.",
     "edad": calcular_edad("2009-12-22"),
-    "nacimiento": "22 de diciembre del 2009",
-    "freelance": True
+    "bio": f"{calcular_edad('2009-12-22')} años. Especialista en reparación de dispositivos móviles y desarrollo de software. Soluciones técnicas confiables y personalizadas.",
+    "telefono": "+53 59642359"
 }
 
-# FRASES FILOSÓFICAS Y LÓGICAS (como te gustan)
-FRASES_NATHAN = [
-    {
-        "texto": "La perfección no se alcanza cuando no hay nada más que añadir, sino cuando no hay nada más que quitar.",
-        "autor": "Antoine de Saint-Exupéry",
-        "categoria": "Perfección"
-    },    {
-        "texto": "El fin justifica los medios.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Política"
-    },
-    {
-        "texto": "Más vale ser temido que amado, si no se puede ser ambas cosas.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Poder"
-    },
-    {
-        "texto": "Los hombres olvidan antes la muerte de su padre que la pérdida de su patrimonio.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Naturaleza Humana"
-    },
-    {
-        "texto": "Hay que ser zorro para conocer las trampas y león para espantar a los lobos.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Estrategia"
-    },
-    {
-        "texto": "Es más seguro ser temido que ser amado.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Poder"
-    },
-    {
-        "texto": "Todos ven lo que aparentas; pocos advierten lo que eres.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Realismo Político"
-    },
-    {
-        "texto": "Un príncipe debe parecer piadoso, fiel, humano, íntegro, religioso... y serlo, pero con la mente preparada para poder y saber cambiar a lo contrario si es necesario.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Realismo Político"
-    },
-    {
-        "texto": "La promesa dada fue una necesidad del pasado; la palabra rota es una necesidad del presente.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Estrategia"
-    },
-    {
-        "texto": "Los hombres ofenden antes al que aman que al que temen.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Naturaleza Humana"
-    },
-    {
-        "texto": "La crueldad está bien usada cuando se ejecuta de una sola vez, por necesidad de seguridad.",
-        "autor": "Nicolás Maquiavelo",
-        "categoria": "Poder"
-    },
-    {
-        "texto": "La lógica te llevará de A a B. La imaginación te llevará a cualquier parte.",
-        "autor": "Albert Einstein",
-        "categoria": "Lógica"
-    },
-    {
-        "texto": "No es lo que miras lo que importa, es lo que ves.",
-        "autor": "Henry David Thoreau",
-        "categoria": "Perspectiva"
-    },
-    {
-        "texto": "El dinero es un buen sirviente pero un mal amo.",
-        "autor": "Francis Bacon",
-        "categoria": "Dinero"
-    },
-    {
-        "texto": "La vida es un 10% lo que me pasa y un 90% cómo reacciono ante ello.",
-        "autor": "Charles R. Swindoll",
-        "categoria": "Actitud"
-    },
-    {
-        "texto": "Si tienes miedo, no lo hagas. Si lo haces, no tengas miedo.",
-        "autor": "Gengis Kan",
-        "categoria": "Actitud"
-    },
-    {
-        "texto": "La única constante en la vida es el cambio.",
-        "autor": "Heráclito",
-        "categoria": "Cambio"
-    },
-    # **Nuevas frases añadidas:**
-    {
-        "texto": "Pienso, luego existo.",
-        "autor": "René Descartes",
-        "categoria": "Existencia"
-    },
-    {
-        "texto": "Conócete a ti mismo.",
-        "autor": "Inscripción en el Templo de Apolo en Delfos",
-        "categoria": "Autoconocimiento"
-    },
-    {
-        "texto": "La virtud está en el término medio.",
-        "autor": "Aristóteles",
-        "categoria": "Ética"
-    },
-    {
-        "texto": "Lo que no me mata, me hace más fuerte.",
-        "autor": "Friedrich Nietzsche",
-        "categoria": "Resiliencia"
-    },
-    {
-        "texto": "El hombre está condenado a ser libre.",
-        "autor": "Jean-Paul Sartre",
-        "categoria": "Libertad"
-    },
-    {
-        "texto": "No hay hechos, sólo interpretaciones.",
-        "autor": "Friedrich Nietzsche",
-        "categoria": "Perspectiva"
-    },
-    {
-        "texto": "El mayor enemigo del conocimiento no es la ignorancia, sino la ilusión del conocimiento.",
-        "autor": "Stephen Hawking",
-        "categoria": "Conocimiento"
-    },
-    {
-        "texto": "La verdad se encuentra en la simplicidad, y no en la multiplicidad y confusión de las cosas.",
-        "autor": "Isaac Newton",
-        "categoria": "Verdad"
-    },
-    {
-        "texto": "Dudar de todo o creerlo todo son dos soluciones igualmente convenientes, pues ambas nos evitan reflexionar.",
-        "autor": "Henri Poincaré",
-        "categoria": "Pensamiento Crítico"
-    },
-    {
-        "texto": "La ciencia es lo que sabemos; la filosofía es lo que no sabemos.",
-        "autor": "Bertrand Russell",
-        "categoria": "Ciencia y Filosofía"
-    },
-    
-    {
-        "texto": "Es en los juegos donde los hombres se muestran tal como son.",
-        "autor": "Blaise Pascal",
-        "categoria": "Naturaleza Humana"
-    },
-    {
-        "texto": "Ser es ser percibido.",
-        "autor": "George Berkeley",
-        "categoria": "Existencia"
-    },
-    {
-        "texto": "La función de la lógica es meramente analítica, no creativa.",
-        "autor": "Ludwig Wittgenstein",
-        "categoria": "Lógica"
-    },
-    {
-        "texto": "El sabio puede cambiar de opinión. El necio, nunca.",
-        "autor": "Immanuel Kant",
-        "categoria": "Sabiduría"
-    },
-    {
-        "texto": "La ausencia de prueba no es prueba de ausencia.",
-        "autor": "Carl Sagan (atribuida comúnmente)",
-        "categoria": "Lógica y Escepticismo"
-    },
-    {
-        "texto": "Para quien sólo tiene un martillo, todo le parece un clavo.",
-        "autor": "Abraham Maslow",
-        "categoria": "Perspectiva"
-    },
-    {
-        "texto": "La contradicción no es un signo de falsedad, ni la no contradicción lo es de verdad.",
-        "autor": "Blaise Pascal",
-        "categoria": "Lógica"
-    },
-    {
-        "texto": "La esperanza es un deseo que tiende hacia el futuro; el arrepentimiento, un deseo que tiende hacia el pasado.",
-        "autor": "Baruch Spinoza",
-        "categoria": "Emoción y Tiempo"
-    },
-    {
-        "texto": "La imaginación gobierna el mundo.",
-        "autor": "Napoleón Bonaparte",
-        "categoria": "Imaginación"
-    },
-    {
-        "texto": "La belleza perece en la vida, pero es inmortal en el arte.",
-        "autor": "Leonardo da Vinci",
-        "categoria": "Arte y Belleza"
-    },
-    {
-        "texto": "La libertad es aquella facultad que aumenta la utilidad de todas las demás facultades.",
-        "autor": "Immanuel Kant",
-        "categoria": "Libertad"
-    },
-    {
-        "texto": "El ignorante afirma, el sabio duda y reflexiona.",
-        "autor": "Aristóteles",
-        "categoria": "Sabiduría"
-    },
-    {
-        "texto": "La injusticia en cualquier parte es una amenaza para la justicia en todas partes.",
-        "autor": "Martin Luther King Jr.",
-        "categoria": "Justicia"
-    },
-    {
-        "texto": "La mente es como un paracaídas; sólo funciona si se abre.",
-        "autor": "Frank Zappa",
-        "categoria": "Mentalidad"
-    },
-    {
-        "texto": "El tiempo es la imagen móvil de la eternidad inmóvil.",
-        "autor": "Platón",
-        "categoria": "Tiempo"
-    },
-    {
-        "texto": "La primera virtud del conocimiento es la capacidad de enfrentarse a lo que no es evidente.",
-        "autor": "Jacques Derrida",
-        "categoria": "Conocimiento"
-    },
-    {
-        "texto": "La muerte no nos roba los seres amados. Al contrario, nos los guarda y nos los inmortaliza en el recuerdo.",
-        "autor": "Jean-Paul Sartre",
-        "categoria": "Muerte y Memoria"
-    },
-    {
-        "texto": "Si no actúas como piensas, terminarás pensando como actúas.",
-        "autor": "Blaise Pascal",
-        "categoria": "Coherencia"
-    },
-    {
-        "texto": "La casualidad no existe; lo que llamamos casualidad es el efecto de una causa que no conocemos.",
-        "autor": "Voltaire",
-        "categoria": "Causalidad"
-    },
-    {
-        "texto": "La paciencia es amarga, pero su fruto es dulce.",
-        "autor": "Jean-Jacques Rousseau",
-        "categoria": "Paciencia"
-    },
-    {
-        "texto": "La envidia es una declaración de inferioridad.",
-        "autor": "Napoleón Bonaparte",
-        "categoria": "Emoción"
-    },
-    {
-        "texto": "La duda es el principio de la sabiduría.",
-        "autor": "Aristóteles",
-        "categoria": "Sabiduría"
-    },
-    {
-        "texto": "La verdadera felicidad está en la libertad y en la realización de las propias capacidades.",
-        "autor": "Aristóteles",
-        "categoria": "Felicidad"
-    },
-    {
-        "texto": "El hombre es la medida de todas las cosas.",
-        "autor": "Protágoras",
-        "categoria": "Humanismo"
-    },
-    {
-        "texto": "La filosofía es la lucha contra el hechizo de nuestro entendimiento por medio del lenguaje.",
-        "autor": "Ludwig Wittgenstein",
-        "categoria": "Filosofía"
-    }
-]
-# TUS PELÍCULAS FAVORITAS
-TUS_PELICULAS = [
-    {"titulo": "El Lobo de Wall Street", "tema": "Ambición, Dinero"},
-    {"titulo": "Scarface", "tema": "Poder, Caída"},
-    {"titulo": "La Red Social", "tema": "Innovación, Creación"},
-    {"titulo": "La Gran Apuesta", "tema": "Finanzas, Riesgo"},
-    {"titulo": "En Busca de la Felicidad", "tema": "Perseverancia"},
-    {"titulo": "Whiplash", "tema": "Excelencia, Obsesión"},
-    {"titulo": "The Founder", "tema": "Emprendimiento"},
-    {"titulo": "El Aprendiz", "tema": "Aprendizaje"},
-    {"titulo": "Rocky", "tema": "Determinación"},
-    {"titulo": "Air", "tema": "Negociación, Visión"}
-]
+# Elimina FRASES_NATHAN completamente
 
-# TU HISTORIA CRONOLÓGICA
-TU_HISTORIA = [
-    {
-        "año": "2009",
-        "titulo": "Llegada al Mundo",
-        "descripcion": "22 de diciembre - Nathán Pérez nace en Boca de Camarioca",
-        "icono": "👶",
-        "color": "#3B82F6",
-        "tipo": "personal"
-    },
-    {
-        "año": "2019",
-        "titulo": "Primer Contacto con el Código",
-        "descripcion": "10 años - Reversing de aplicaciones Android, primeros pasos en Smali",
-        "icono": "📱",
-        "color": "#10B981",
-        "tipo": "tecnologia"
-    },
-    {
-        "año": "2020",
-        "titulo": "Comunidad Telegram y Python",
-        "descripcion": "11 años - Entra a comunidad S3, aprende Python y desarrollo de bots",
-        "icono": "🤖",
-        "color": "#6366F1",
-        "tipo": "comunidad"
-    },
-    {
-        "año": "2021",
-        "titulo": "Éxito y Caída de toDus S3",
-        "descripcion": "Canal de 2000+ seguidores, fin de una era gratuita",
-        "icono": "📉",
-        "color": "#EF4444",
-        "tipo": "aprendizaje"
-    },
-    {
-        "año": "2021-2022",
-        "titulo": "Emprendimiento con Moodles",
-        "descripcion": "Bots educativos, primer dinero ganado, inicio del amor por las finanzas",
-        "icono": "💰",
-        "color": "#F59E0B",
-        "tipo": "negocios"
-    },
-    {
-        "año": "2022",
-        "titulo": "Reparación de Hardware",
-        "descripcion": "12-13 años - Trabajo en taller, habilidades técnicas",
-        "icono": "🔧",
-        "color": "#8B5CF6",
-        "tipo": "tecnologia"
-    },
-    {
-        "año": "2023",
-        "titulo": "Experiencia Transformadora",
-        "descripcion": "La Esperanza, Villa Clara - Aprendizaje forzado, psicología aplicada",
-        "icono": "⚡",
-        "color": "#06B6D4",
-        "tipo": "crecimiento"
-    },
-    {
-        "año": "2023-2024",
-        "titulo": "Renacimiento Digital",
-        "descripcion": "Regreso a Boca de Camarioca, aprendizaje con Alejandro y Javier",
-        "icono": "🚀",
-        "color": "#EC4899",
-        "tipo": "renacimiento"
-    },
-    {
-        "año": "Presente",
-        "titulo": "Búsqueda de Excelencia",
-        "descripcion": "Desarrollo web, aplicaciones Android, constante evolución",
-        "icono": "🎯",
-        "color": "#84CC16",
-        "tipo": "futuro"
-    }
-]
-
-# TUS HABILIDADES
-TUS_HABILIDADES = {
-    "lenguajes": [
-        {"nombre": "Python", "nivel": 95, "color": "#3776AB", "icono": "🐍", "experiencia": "4 años"},
-        {"nombre": "Kotlin", "nivel": 80, "color": "#7F52FF", "icono": "⚡", "experiencia": "2 años"},
-        {"nombre": "Java", "nivel": 85, "color": "#007396", "icono": "☕", "experiencia": "3 años"},
-        {"nombre": "JavaScript", "nivel": 75, "color": "#F7DF1E", "icono": "📜", "experiencia": "3 años"},
-        {"nombre": "Visual Basic", "nivel": 70, "color": "#00599C", "icono": "👁️", "experiencia": "3 años"}
+# Datos simplificados para el index
+DATOS_INDEX = {
+    "servicios_destacados": [
+        {
+            "icono": "📱",
+            "titulo": "Reparación Móvil",
+            "desc": "Pantallas, puertos, baterías, mantenimiento",
+            "color": "#f59e0b",  # Amarillo
+            "categoria": "reparacion"
+        },
+        {
+            "icono": "💻",
+            "titulo": "Apps Multiplataforma",
+            "desc": "Desarrollo de aplicaciones compatibles en android, windows y Mac",
+            "color": "#3b82f6",  # Azul
+            "categoria": "programacion"
+        },
+        {
+            "icono": "🌐",
+            "titulo": "Páginas Web",
+            "desc": "Sitios web responsivos y modernos.",
+            "color": "#10b981",  # Verde
+            "categoria": "programacion"
+        }
     ],
-    "habilidades_personales": [
-        {"nombre": "Lógica", "nivel": 90, "color": "#3B82F6"},
-        {"nombre": "Fuerza de Voluntad", "nivel": 95, "color": "#10B981"},
-        {"nombre": "Aprendizaje Autónomo", "nivel": 92, "color": "#8B5CF6"},
-        {"nombre": "Pensamiento Crítico", "nivel": 88, "color": "#EC4899"},
-        {"nombre": "Adaptabilidad", "nivel": 85, "color": "#F59E0B"}
+    "estadisticas": [
+        {"numero": "200+", "texto": "Dispositivos Reparados"},
+        {"numero": "20+", "texto": "Proyectos de Software"},
+        {"numero": "89%", "texto": "Clientes Satisfechos"},
+        {"numero": "3+", "texto": "Años de Experiencia"}
+    ]
+}
+# ========== SERVICIOS ==========
+
+TUS_SERVICIOS_CATALOGO = {
+    "programacion": [
+        {
+            "id": "android_app",
+            "nombre": "Apps Multiplataforma",
+            "icono": "📱",
+            "descripcion": "Aplicaciones para Android, Windows y MacOS. Desde apps simples hasta sistemas completos.",
+            "herramientas": ["Kotlin", "Java", "C++"],
+            "destacado": True,
+            "color_borde": "#3b82f6"
+        },
+        {
+            "id": "web_app",
+            "nombre": "Páginas Web",
+            "icono": "🌐",
+            "descripcion": "Sitios web y aplicaciones web responsivas con Python, Flask y tecnologías modernas.",
+            "herramientas": ["Python", "Flask", "HTML/CSS", "JavaScript"],
+            "destacado": True,
+            "color_borde": "#10b981"
+        },
+        {
+            "id": "bots",
+            "nombre": "Bots Automáticos",
+            "icono": "🤖",
+            "descripcion": "Bots para Telegram, automatización de tareas, scraping de datos y procesos repetitivos.",
+            "herramientas": ["Python", "Pyrogram", "Selenium"],
+            "destacado": False,
+            "color_borde": "#8b5cf6"
+        },
+        {
+            "id": "scripts",
+            "nombre": "Scripts Personalizados",
+            "icono": "⚙️",
+            "descripcion": "Programas a medida para resolver problemas específicos de tu negocio o flujo de trabajo.",
+            "herramientas": ["Python", "Visual Basic", "Bash"],
+            "destacado": False,
+            "color_borde": "#6366f1"
+        }
+    ],
+    "reparacion": [
+        {
+            "id": "pantallas",
+            "nombre": "Cambio de Pantallas",
+            "icono": "📱",
+            "descripcion": "Reemplazo profesional de pantallas rotas o dañadas. Garantía en la instalación.",
+            "marcas": ["iPhone", "Samsung", "Xiaomi", "Huawei"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "puertos",
+            "nombre": "Cambio de Puerto de Carga",
+            "icono": "🔌",
+            "descripcion": "Reparación de puertos de carga defectuosos. Recupera la carga rápida de tu dispositivo.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "unred",
+            "nombre": "Desbloqueo de Red(Compañia)",
+            "icono": "🔓",
+            "descripcion": "Desbloquea tu dispositivo para poder usar cualquier operador por ejemplo Cubacel.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "baterias",
+            "nombre": "Cambio de Baterías",
+            "icono": "🔋",
+            "descripcion": "Reemplazo de baterías hinchadas o con poca duración. Baterías de calidad original.",
+            "marcas": ["iPhone", "Samsung", "Android en general"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "unfrp",
+            "nombre": "Desbloqueo de Frp (Cuenta google)",
+            "icono": "🔓",
+            "descripcion": "Desbloquea tu dispositivo para poder usar todas sus funciones.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "mantenimiento",
+            "nombre": "Mantenimiento General",
+            "icono": "🔧",
+            "descripcion": "Limpieza interna, diagnóstico completo, solución de problemas de software y hardware.",
+            "servicios": ["Limpieza", "Diagnóstico", "Optimización"],
+            "destacado": False,
+            "color_borde": "#ef4444"
+        },
+        {
+            "id": "unmdm",
+            "nombre": "Desbloqueo de MDM, PayJoy o KG lock(Falta de pagos)",
+            "icono": "🔓",
+            "descripcion": "Desbloquea tu dispositivo para poder usar todas sus funciones.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "unicloud",
+            "nombre": "Desbloqueo (bypass) iCloud sin Señal",
+            "icono": "🔓",
+            "descripcion": "Desbloquea tu iphone del XS en adelante para poder usar todas sus funciones excepto red celular.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        },
+        {
+            "id": "unmicloud",
+            "nombre": "Desbloqueo (bypass) Cuenta MI Xiaomi",
+            "icono": "🔓",
+            "descripcion": "Desbloqueo sin ataduras.",
+            "marcas": ["Todas las marcas"],
+            "destacado": True,
+            "color_borde": "#f59e0b"
+        }
     ]
 }
 
-# TUS INTERESES
-TUS_PASIONES = [
-    {"nombre": "Lógica", "desc": "Resolver problemas, patrones, pensamiento estructurado", "icono": "🧠", "color": "#3B82F6"},
-    {"nombre": "Filosofía", "desc": "Reflexión, significado, preguntas existenciales", "icono": "📜", "color": "#8B5CF6"},
-    {"nombre": "Matemáticas", "desc": "Precisión, belleza numérica, patrones", "icono": "π", "color": "#10B981"},
-    {"nombre": "Tecnología", "desc": "Innovación, creación, futuro", "icono": "💻", "color": "#6366F1"},
-    {"nombre": "Música", "desc": "Todos los géneros excepto rock", "icono": "🎵", "color": "#EC4899"},
-    {"nombre": "Fútbol", "desc": "Jugar, no ver", "icono": "⚽", "color": "#84CC16"},
-    {"nombre": "Cine", "desc": "Películas con mensaje", "icono": "🎬", "color": "#F59E0B"},
-    {"nombre": "Finanzas", "desc": "Dinero, inversión, negocios", "icono": "💰", "color": "#06B6D4"}
+# Añade esto después de las importaciones existentes
+import re
+from datetime import datetime
+
+# ========== DATOS DE RESEÑAS CON BASE DE DATOS SIMULADA ==========
+RESENAS_FILE = 'data/resenas.json'
+
+def cargar_resenas():
+    """Cargar reseñas desde el archivo JSON"""
+    try:
+        os.makedirs('data', exist_ok=True)
+        if os.path.exists(RESENAS_FILE):
+            with open(RESENAS_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+    except Exception as e:
+        print(f"Error cargando reseñas: {e}")
+    return []
+
+def guardar_resenas(resenas):
+    """Guardar reseñas en el archivo JSON"""
+    try:
+        with open(RESENAS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(resenas, f, indent=2, ensure_ascii=False)
+        return True
+    except Exception as e:
+        print(f"Error guardando reseñas: {e}")
+        return False
+
+def agregar_resena(cliente, lugar, servicio, descripcion, valoracion):
+    """Agregar una nueva reseña"""
+    try:
+        resenas = cargar_resenas()
+        
+        # Crear ID único
+        nuevo_id = max([r.get('id', 0) for r in resenas], default=0) + 1
+        
+        # Formatear el nombre con lugar
+        if lugar and lugar.strip():
+            cliente_formateado = f"{cliente} ({lugar})"
+        else:
+            cliente_formateado = cliente
+        
+        nueva_resena = {
+            "id": nuevo_id,
+            "cliente": cliente_formateado,
+            "servicio": servicio,
+            "fecha": datetime.now().strftime("%B %Y"),
+            "descripcion": descripcion,
+            "imagen": "default_resena.jpg",
+            "categoria": "reparacion",  # Por defecto, puedes ajustar si necesitas categorías
+            "valoracion": int(valoracion),
+            "aprobada": False  # Para moderación
+        }
+        
+        resenas.append(nueva_resena)
+        guardar_resenas(resenas)
+        return True, "Reseña enviada para aprobación. ¡Gracias!"
+    except Exception as e:
+        return False, f"Error: {str(e)}"
+
+# ========== TRABAJOS_RECIENTES actualizado ==========
+# Reemplaza el TRABAJOS_RECIENTES existente con este:
+TRABAJOS_RECIENTES = [
+   
 ]
+
+# ========== AÑADIR ESTA NUEVA RUTA ==========
+@app.route('/agregar-resena', methods=['GET', 'POST'])
+def agregar_resena_view():
+    theme = get_theme()
+    mensaje = None
+    tipo_mensaje = None  # 'success' o 'error'
+    
+    if request.method == 'POST':
+        cliente = request.form.get('cliente', '').strip()
+        lugar = request.form.get('lugar', '').strip()
+        servicio = request.form.get('servicio', '').strip()
+        descripcion = request.form.get('descripcion', '').strip()
+        valoracion = request.form.get('valoracion', '5')
+        
+        # Validaciones básicas
+        if not cliente:
+            mensaje = "Por favor, escribe tu nombre."
+            tipo_mensaje = 'error'
+        elif not servicio:
+            mensaje = "Por favor, indica qué servicio recibiste."
+            tipo_mensaje = 'error'
+        elif not descripcion or len(descripcion) < 10:
+            mensaje = "Por favor, escribe una descripción más detallada (mínimo 10 caracteres)."
+            tipo_mensaje = 'error'
+        else:
+            success, msg = agregar_resena(cliente, lugar, servicio, descripcion, valoracion)
+            mensaje = msg
+            tipo_mensaje = 'success' if success else 'error'
+            
+            if success:
+                # Limpiar el formulario después de éxito
+                cliente = lugar = servicio = descripcion = ""
+    
+    return render_template('agregar_resena.html',
+                         perfil=NATHAN_PERFIL,
+                         theme=theme,
+                         mensaje=mensaje,
+                         tipo_mensaje=tipo_mensaje)
+
+# ========== MODIFICAR LA RUTA DE TRABAJOS ==========
+@app.route('/trabajos')
+def trabajos():
+    theme = get_theme()
+    categoria = request.args.get('categoria', 'todos')
+    
+    # Cargar reseñas aprobadas
+    resenas_aprobadas = [r for r in cargar_resenas() if r.get('aprobada', False)]
+    
+    # Combinar trabajos fijos con reseñas aprobadas
+    todos_trabajos = TRABAJOS_RECIENTES + resenas_aprobadas
+    
+    if categoria == 'todos':
+        trabajos_filtrados = todos_trabajos
+    else:
+        trabajos_filtrados = [t for t in todos_trabajos if t['categoria'] == categoria]
+    
+    return render_template('trabajos.html',
+                         perfil=NATHAN_PERFIL,
+                         trabajos=trabajos_filtrados,
+                         categoria_activa=categoria,
+                         theme=theme)
+
+# ========== RUTA PARA ADMIN (APROBAR RESEÑAS) ==========
+@app.route('/admin/resenas')
+def admin_resenas():
+    theme = get_theme()
+    # Aquí podrías agregar autenticación simple si quieres
+    resenas = cargar_resenas()
+    resenas_pendientes = [r for r in resenas if not r.get('aprobada', False)]
+    resenas_aprobadas = [r for r in resenas if r.get('aprobada', False)]
+    
+    return render_template('admin_resenas.html',
+                         perfil=NATHAN_PERFIL,
+                         theme=theme,
+                         pendientes=resenas_pendientes,
+                         aprobadas=resenas_aprobadas)
+
+@app.route('/admin/aprobar-resena/<int:resena_id>')
+def aprobar_resena(resena_id):
+    resenas = cargar_resenas()
+    for resena in resenas:
+        if resena['id'] == resena_id:
+            resena['aprobada'] = True
+            guardar_resenas(resenas)
+            break
+    return jsonify({'success': True})
+
+@app.route('/admin/eliminar-resena/<int:resena_id>')
+def eliminar_resena(resena_id):
+    resenas = cargar_resenas()
+    resenas = [r for r in resenas if r['id'] != resena_id]
+    guardar_resenas(resenas)
+    return jsonify({'success': True})
+
+# ========== INICIALIZACIÓN actualizada ==========
+def init_data():
+    os.makedirs('data', exist_ok=True)
+    
+    if not os.path.exists('data/posts.json'):
+        initial_posts = [
+            {
+                "id": 1,
+                "titulo": "Lecciones del Dinero",
+                "contenido": """<h2>Lo que aprendí ganando y perdiendo</h2>
+                <p>El dinero es curioso. Te persigues cuando no lo tienes, y cuando lo consigues, descubres que no era la respuesta...</p>""",
+                "resumen": "Reflexiones sobre finanzas desde los 11 años",
+                "fecha": "2026-01-20",
+                "categoria": "Finanzas",
+                "etiquetas": ["dinero", "aprendizaje", "negocios"],
+                "tiempo_lectura": "5 min",
+                "imagen": "dinero.jpg"
+            }
+        ]
+        with open('data/posts.json', 'w', encoding='utf-8') as f:
+            json.dump(initial_posts, f, indent=2, ensure_ascii=False)
+    
+    # Inicializar archivo de reseñas si no existe
+    if not os.path.exists(RESENAS_FILE):
+        with open(RESENAS_FILE, 'w', encoding='utf-8') as f:
+            json.dump([], f, indent=2, ensure_ascii=False)
 
 # ========== FUNCIONES ==========
 def get_theme():
     return session.get('theme', 'light')
 
-def obtener_frase_nathan():
-    return random.choice(FRASES_NATHAN)
-
 def load_posts():
     try:
         with open('data/posts.json', 'r', encoding='utf-8') as f:
             posts = json.load(f)
-            # Agregar categorías si no existen
             for post in posts:
                 if 'categoria' not in post:
                     post['categoria'] = 'Reflexión'
@@ -440,21 +400,10 @@ def get_posts_by_category(category):
 @app.route('/')
 def index():
     theme = get_theme()
-    frase = obtener_frase_nathan()
+  
     return render_template('index.html',
                          perfil=NATHAN_PERFIL,
-                         frase=frase,
-                         habilidades=TUS_HABILIDADES,
-                         peliculas=TUS_PELICULAS[:5],
-                         theme=theme)
-
-@app.route('/historia')
-def historia():
-    theme = get_theme()
-    return render_template('historia.html',
-                         perfil=NATHAN_PERFIL,
-                         historia=TU_HISTORIA,
-                         habilidades=TUS_HABILIDADES,
+                         datos_index=DATOS_INDEX,
                          theme=theme)
 
 
@@ -464,14 +413,23 @@ def contact():
     success = False
     
     if request.method == 'POST':
-        # Aquí guardarías el mensaje
         success = True
     
     return render_template('contact.html', success=success, perfil=NATHAN_PERFIL, theme=theme)
 
-@app.route('/api/frase')
-def api_frase():
-    return jsonify(obtener_frase_nathan())
+@app.route('/servicios')
+def servicios():
+    theme = get_theme()
+    categoria = request.args.get('categoria', 'reparacion')
+    return render_template('servicios.html',
+                         perfil=NATHAN_PERFIL,
+                         servicios=TUS_SERVICIOS_CATALOGO,
+                         categoria_activa=categoria,
+                         theme=theme)
+
+
+
+
 
 @app.route('/toggle-theme', methods=['POST'])
 def toggle_theme():
@@ -492,7 +450,7 @@ def init_data():
                 "contenido": """<h2>Lo que aprendí ganando y perdiendo</h2>
                 <p>El dinero es curioso. Te persigues cuando no lo tienes, y cuando lo consigues, descubres que no era la respuesta...</p>""",
                 "resumen": "Reflexiones sobre finanzas desde los 11 años",
-                "fecha": "2024-01-20",
+                "fecha": "2026-01-20",
                 "categoria": "Finanzas",
                 "etiquetas": ["dinero", "aprendizaje", "negocios"],
                 "tiempo_lectura": "5 min",
@@ -504,25 +462,16 @@ def init_data():
                 "contenido": """<h2>Resolver problemas como un juego</h2>
                 <p>La programación me enseñó que todo problema tiene solución...</p>""",
                 "resumen": "Cómo la lógica transformó mi forma de pensar",
-                "fecha": "2024-01-18",
+                "fecha": "2026-01-18",
                 "categoria": "Lógica",
                 "etiquetas": ["lógica", "programación", "pensamiento"],
                 "tiempo_lectura": "4 min",
                 "imagen": "logica.jpg"
-            },
-            {
-                "id": 3,
-                "titulo": "De Boca de Camarioca al Mundo Digital",
-                "contenido": """<h2>Creciendo entre la playa y el código</h2>
-                <p>Ser de un pueblo pequeño no es limitación cuando tienes internet...</p>""",
-                "resumen": "Mi experiencia creciendo como desarrollador en Cuba",
-                "fecha": "2024-01-15",
-                "categoria": "Personal",
-                "etiquetas": ["cuba", "crecimiento", "tecnología"],
-                "tiempo_lectura": "6 min",
-                "imagen": "cuba.jpg"
             }
         ]
         with open('data/posts.json', 'w', encoding='utf-8') as f:
             json.dump(initial_posts, f, indent=2, ensure_ascii=False)
 
+if __name__ == '__main__':
+    init_data()
+    app.run(host="0.0.0.0", debug=True, port=5000)

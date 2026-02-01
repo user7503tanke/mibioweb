@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Trabajos Recientes • Nathán Pérez{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <!-- Sección para agregar reseña -->
+    <div class="agregar-resena-section">
+        <h3><i class="fas fa-plus-circle"></i> ¿Fuiste cliente?</h3>
+        <p>Comparte tu experiencia y ayuda a otros a conocernos mejor.</p>
+        <a href="{{ url_for('agregar_resena_view') }}" class="btn-agregar-resena">
+            <i class="fas fa-comment-medical"></i> Agregar Mi Reseña
+        </a>
+    </div>
+
+<style>
+.agregar-resena-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    margin: 4rem auto;
+    max-width: 800px;
+    background: linear-gradient(135deg, var(--card-bg), var(--bg-secondary));
+    border-radius: 16px;
+    border: 2px dashed var(--primary-color);
+}
+
+.agregar-resena-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.agregar-resena-section p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-agregar-resena {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    color: black;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-agregar-resena:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+.trabajos-grid {
+    text-align: left;
+    padding: 3rem 2rem;
+    margin: 4rem auto;
+    max-width: 800px;
+    background: #ecececff;
+    border-radius: 16px;
+    border: 2px dashed var(--primary-color);
+}
+</style>
+
+    <section class="hero-trabajos">
+        <h1><i class="fas fa-toolbox"></i> Trabajos Realizados</h1>
+        <p class="subtitle">Clientes satisfechos con servicios de programación y reparación</p>
+        
+        <!-- Filtros -->
+        <div class="filtros-trabajos">
+            <a href="{{ url_for('trabajos') }}?categoria=todos" 
+               class="filtro-btn {% if categoria_activa == 'todos' %}active{% endif %}">
+                Todos
+            </a>
+            <a href="{{ url_for('trabajos') }}?categoria=programacion" 
+               class="filtro-btn {% if categoria_activa == 'programacion' %}active{% endif %}">
+                <i class="fas fa-code"></i> Programación
+            </a>
+            <a href="{{ url_for('trabajos') }}?categoria=reparacion" 
+               class="filtro-btn {% if categoria_activa == 'reparacion' %}active{% endif %}">
+                <i class="fas fa-tools"></i> Reparación
+            </a>
+        </div>
+    </section>
+    
+    <!-- Grid de trabajos -->
+    <div class="trabajos-grid">
+        {% for trabajo in trabajos %}
+        <div class="trabajo-card">
+            <div class="trabajo-header">
+                <div class="trabajo-categoria {{ trabajo.categoria }}">
+                    {% if trabajo.categoria == 'programacion' %}
+                    <i class="fas fa-laptop-code"></i> Programación
+                    {% else %}
+                    <i class="fas fa-mobile-alt"></i> Reparación
+                    {% endif %}
+                </div>
+                <div class="trabajo-valoracion">
+                    {% for i in range(5) %}
+                    <i class="fas fa-star {% if i < trabajo.valoracion %}estrella-activa{% endif %}"></i>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="trabajo-content">
+                <h3>{{ trabajo.servicio }}</h3>
+                <p class="trabajo-cliente"><i class="fas fa-user"></i> {{ trabajo.cliente }}</p>
+                <p class="trabajo-desc">{{ trabajo.descripcion }}</p>
+                <p class="trabajo-fecha"><i class="fas fa-calendar"></i> {{ trabajo.fecha }}</p>
+            </div>
+            
+            <div class="trabajo-action">
+                {% if trabajo.categoria == 'programacion' %}
+                <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20quiero%20un%20servicio%20similar%20a%20{{ trabajo.servicio|urlencode }}%20que%20hiciste%20para%20{{ trabajo.cliente|urlencode }}" 
+                   class="btn-similar" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Quiero algo similar
+                </a>
+                {% else %}
+                <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20necesito%20{{ trabajo.servicio|urlencode }}%20como%20le%20hiciste%20a%20{{ trabajo.cliente|urlencode }}" 
+                   class="btn-similar" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Necesito esta reparación
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Nota -->
+    <div class="trabajos-nota">
+        <p><i class="fas fa-info-circle"></i> ¿Quieres aparecer aquí? Contáctame y podré mostrar tu proyecto como referencia (con tu permiso).</p>
+        <a href="{{ url_for('contact') }}" class="btn-contactar">Sugerir un trabajo</a>
+    </div>
+</div>
+{% endblock %}

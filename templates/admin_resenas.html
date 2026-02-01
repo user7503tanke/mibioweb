@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}Administrar Reseñas • Nathán Pérez{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1><i class="fas fa-user-shield"></i> Moderar Reseñas</h1>
+    
+    <!-- Reseñas pendientes -->
+    <section class="resenas-pendientes">
+        <h2>📝 Pendientes de Aprobación ({{ pendientes|length }})</h2>
+        {% if pendientes %}
+        <div class="resenas-grid">
+            {% for resena in pendientes %}
+            <div class="resena-card pendiente">
+                <div class="resena-header">
+                    <h3>{{ resena.servicio }}</h3>
+                    <div class="resena-valoracion">
+                        {% for i in range(5) %}
+                        <i class="fas fa-star {% if i < resena.valoracion %}estrella-activa{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                </div>
+                <p class="resena-cliente"><strong>{{ resena.cliente }}</strong> • {{ resena.fecha }}</p>
+                <p class="resena-desc">{{ resena.descripcion }}</p>
+                <div class="resena-acciones">
+                    <button class="btn-aprobar" onclick="aprobarResena({{ resena.id }})">
+                        <i class="fas fa-check"></i> Aprobar
+                    </button>
+                    <button class="btn-eliminar" onclick="eliminarResena({{ resena.id }})">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="sin-resenas">No hay reseñas pendientes.</p>
+        {% endif %}
+    </section>
+    
+    <!-- Reseñas aprobadas -->
+    <section class="resenas-aprobadas">
+        <h2>✅ Reseñas Aprobadas ({{ aprobadas|length }})</h2>
+        {% if aprobadas %}
+        <div class="resenas-grid">
+            {% for resena in aprobadas %}
+            <div class="resena-card aprobada">
+                <div class="resena-header">
+                    <h3>{{ resena.servicio }}</h3>
+                    <div class="resena-valoracion">
+                        {% for i in range(5) %}
+                        <i class="fas fa-star {% if i < resena.valoracion %}estrella-activa{% endif %}"></i>
+                        {% endfor %}
+                    </div>
+                </div>
+                <p class="resena-cliente"><strong>{{ resena.cliente }}</strong> • {{ resena.fecha }}</p>
+                <p class="resena-desc">{{ resena.descripcion }}</p>
+                <div class="resena-acciones">
+                    <button class="btn-eliminar" onclick="eliminarResena({{ resena.id }})">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="sin-resenas">No hay reseñas aprobadas aún.</p>
+        {% endif %}
+    </section>
+</div>
+
+<style>
+.resenas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.resena-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border-left: 5px solid;
+}
+
+.resena-card.pendiente {
+    border-left-color: #f59e0b;
+}
+
+.resena-card.aprobada {
+    border-left-color: #10b981;
+}
+
+.resena-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.resena-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.resena-valoracion {
+    color: #f59e0b;
+}
+
+.resena-cliente {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.resena-desc {
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.resena-acciones {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-aprobar, .btn-eliminar {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-aprobar {
+    background: #10b981;
+    color: white;
+}
+
+.btn-aprobar:hover {
+    background: #0da271;
+}
+
+.btn-eliminar {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background: #dc2626;
+}
+
+.sin-resenas {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 2px dashed var(--border-color);
+}
+
+h2 {
+    color: var(--text-color);
+    margin-top: 3rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+</style>
+
+<script>
+function aprobarResena(id) {
+    fetch(`/admin/aprobar-resena/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+}
+
+function eliminarResena(id) {
+    if (confirm('¿Estás seguro de eliminar esta reseña?')) {
+        fetch(`/admin/eliminar-resena/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
+    }
+}
+</script>
+{% endblock %}

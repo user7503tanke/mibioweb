@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Servicios • Nathán Pérez{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section Mecánico -->
+    <section class="hero-servicios">
+        <h1><i class="fas fa-cogs"></i> Servicios Técnicos</h1>
+        <p class="subtitle">Programación profesional y reparación de dispositivos móviles</p>
+        <div class="herramientas-iconos">
+            <i class="fas fa-microscope"></i>
+            <i class="fas fa-tools"></i>
+            <i class="fas fa-microchip"></i>
+            <i class="fas fa-mobile-alt"></i>
+            <i class="fas fa-laptop-code"></i>
+        </div>
+    </section>
+    
+    <!-- Pestañas de Servicios -->
+    <div class="tabs-container">
+        <div class="tabs-header">
+            <button class="tab-btn {% if categoria_activa == 'reparacion' %}active{% endif %}" 
+                    onclick="window.location.href='{{ url_for('servicios') }}?categoria=reparacion'">
+                <i class="fas fa-tools"></i> Reparación
+            </button>
+            <button class="tab-btn {% if categoria_activa == 'programacion' %}active{% endif %}" 
+                    onclick="window.location.href='{{ url_for('servicios') }}?categoria=programacion'">
+                <i class="fas fa-code"></i> Programación
+            </button>
+            
+        </div>
+        
+        <!-- Contenido Programación -->
+        {% if categoria_activa == 'programacion' %}
+        <div class="tab-content active">
+            <div class="servicios-grid">
+                {% for servicio in servicios.programacion %}
+                <div class="servicio-card" style="border-left: 4px solid {{ servicio.color_borde }};">
+                    <div class="servicio-header">
+                        <span class="servicio-icono">{{ servicio.icono }}</span>
+                        <h3>{{ servicio.nombre }}</h3>
+                        {% if servicio.destacado %}
+                        <span class="badge-destacado"><i class="fas fa-star"></i> Destacado</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="servicio-desc">{{ servicio.descripcion }}</p>
+                    
+                    <div class="servicio-herramientas">
+                        {% for herramienta in servicio.herramientas %}
+                        <span class="herramienta-badge">{{ herramienta }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="servicio-action">
+                        <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20me%20interesa%20el%20servicio%20de%20{{ servicio.nombre|urlencode }}%20en%20tu%20web" 
+                           class="whatsapp-action-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                        </a>
+                        <span class="precio-nota">Precios personalizados según proyecto</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Contenido Reparación -->
+        {% if categoria_activa == 'reparacion' %}
+        <div class="tab-content active">
+            <div class="servicios-grid">
+                {% for servicio in servicios.reparacion %}
+                <div class="servicio-card" style="border-left: 4px solid {{ servicio.color_borde }};">
+                    <div class="servicio-header">
+                        <span class="servicio-icono">{{ servicio.icono }}</span>
+                        <h3>{{ servicio.nombre }}</h3>
+                        {% if servicio.destacado %}
+                        <span class="badge-destacado"><i class="fas fa-star"></i> Popular</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="servicio-desc">{{ servicio.descripcion }}</p>
+                    
+                    <div class="servicio-marcas">
+                        <strong>Marcas que reparo:</strong>
+                        <div class="marcas-list">
+                            {% if servicio.marcas %}
+                                {% for marca in servicio.marcas %}
+                                <span class="marca-badge">{{ marca }}</span>
+                                {% endfor %}
+                            {% endif %}
+                            {% if servicio.servicios %}
+                                {% for serv in servicio.servicios %}
+                                <span class="marca-badge">{{ serv }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="servicio-action">
+                        <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20necesito%20{{ servicio.nombre|urlencode }}%20para%20mi%20dispositivo" 
+                           class="whatsapp-action-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Cotizar en WhatsApp
+                        </a>
+                        <span class="precio-nota">Precio según modelo y disponibilidad de piezas</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Llamada a la acción -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <i class="fas fa-comments-dollar cta-icon"></i>
+            <h2>¿No encuentras lo que necesitas?</h2>
+            <p>Consulta por proyectos personalizados, otras reparaciones o asesoría técnica.</p>
+            <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20tengo%20una%20consulta%20personalizada%20sobre%20tecnología" 
+               class="cta-whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Hablar directamente por WhatsApp
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
