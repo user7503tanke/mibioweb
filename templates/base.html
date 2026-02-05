@@ -1,70 +1,82 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="{{ theme }}">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Nathán Pérez • Desarrollador & Técnico{% endblock %}</title>
-    
-    <!-- Paleta Mechanic: Azul, Amarillo, Verde, Negro -->
-    <style>
-        :root {
-            --color-negro: #0a0a0a;
-            --color-gris-oscuro: #1a1a1a;
-            --color-gris-medio: #2d2d2d;
-            --color-gris-claro: #444444;
-            --color-texto: #ffffff;
-            --color-texto-suave: #cccccc;
-            --color-azul: #3b82f6;
-            --color-amarillo: #dbd115ff;
-            --color-verde: #10b92fff;
-            --color-borde: #333333;
-        }
-        
-        [data-theme="light"] {
-            --color-negro: #ffffff;
-            --color-gris-oscuro: #f5f5f5;
-            --color-gris-medio: #e5e5e5;
-            --color-texto: #000000;
-            --color-texto-suave: #444444;
-            --color-borde: #dddddd;
-        }
-    </style>
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mechanic.css') }}">
+    <title>{% block title %}{{ info.nombre }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="theme-{{ theme }}">
-    <!-- Botón WhatsApp FIJO -->
-    <a href="https://api.whatsapp.com/send/?phone=59642359&text=Hola%20Nathán,%20vi%20tu%20web%20y%20quiero%20consultar%20un%20servicio" 
-       class="whatsapp-btn" target="_blank" title="Consultar por WhatsApp">
+<body>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/{{ info.whatsapp }}?text=Hola,%20quisiera%20consultar%20sobre%20un%20servicio%20de%20reparación" 
+       class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
-    
-    <!-- Header Minimalista -->
-    <header class="mechanic-header">
+
+    {% block header %}
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <nav class="nav-minimal">
-                <a href="{{ url_for('index') }}" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
-                <a href="{{ url_for('servicios') }}" class="nav-link"><i class="fas fa-cogs"></i> Servicios</a>
-                <a href="{{ url_for('trabajos') }}" class="nav-link"><i class="fas fa-toolbox"></i> Trabajos</a>
-            </nav>
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-mobile-alt"></i> {{ info.nombre }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
-    
-    <main class="mechanic-main">
-        {% block content %}{% endblock %}
-    </main>
-    
-    <footer class="mechanic-footer">
+    </nav>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+    <footer class="footer">
         <div class="container">
-            <p>© 2026 Nathán Pérez • Boca de Camarioca, Matanzas, Cuba</p>
-            <p class="footer-contacto">
-                <i class="fas fa-mobile-alt"></i> WhatsApp: +53 59642359 • 
-                <i class="fas fa-envelope"></i> {{ perfil.email }}
-            </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-mobile-alt"></i> {{ info.nombre }}</h5>
+                    <p>{{ info.slogan }}</p>
+                    <p><i class="fas fa-shield-alt"></i> {{ info.garantia }}</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-phone"></i> {{ info.telefono }}</p>
+                    <p><i class="fas fa-clock"></i> {{ info.horario }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ info.ubicacion }}</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Servicios Destacados</h5>
+                    <ul class="footer-services">
+                        <li>Cambio de pantallas</li>
+                        <li>Desbloqueos FRP/iCloud</li>
+                        <li>eSIM a SIM física</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="copyright">© 2024 {{ info.nombre }}. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
-    
-    <script src="{{ url_for('static', filename='js/mechanic.js') }}"></script>
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
